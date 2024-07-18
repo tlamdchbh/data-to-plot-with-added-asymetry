@@ -54,10 +54,10 @@ with st.expander("Important", icon="🚨"):
     $$ 
     '''
     st.write(formula)
-    st.image("E:\Thorlabs\S20K\Comparison_py\Comparison_py\support_programs\misc_py\symmetry_peaks_verena\img_formula.jpg")
+    st.image("img_formula.jpg")
 
 with st.form("input data:"):
-    filename = st.text_input("path to file", value="R:\doc\Programs\MUN4570_Spectrometer 2.1\Testergebnisse\Verifizierung\FWHM-Testdata.txt")
+    filename = st.text_input("path to file", value="")
     peak_prominence = st.number_input("approx intensity of peaks", value=10_000)
     rel_height = 1 - st.number_input("relative height for symmetry factor", value=0.05)
 
