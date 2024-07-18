@@ -37,37 +37,37 @@ def find_asymmetry(data, peak_prominence, filename, rel_height):
     # fig.write_html(f'spectra_{peak_prominence}_{filename}.html')
     return fig, asymmetry_factor_list
 
-if __name__ == "__main__": 
 
-    st.header('Spectra symmetry factor calculator')
-    
-    with st.expander("Important", icon="🚨"):
-        st.info("! column name: wave_nm and int")
-        st.info("! separator is whitespace or tab")
-        st.info("! file format txt or csv")
-        st.write("https://www.shimadzu.com/an/service-support/technical-support/analysis-basics/basic/theoretical_plate.html")
-        formula = r'''
-        $$ 
-        Symmetry factor =  \frac{right_x - peak_x}{peak_x - left_x} 
-        $$ 
-        '''
-        st.write(formula)
-        st.image("img_formula.jpg")
-    
-    with st.form("input data:"):
-        filename = st.file_uploader("Choose a file")
-    
-        peak_prominence = st.number_input("approx intensity of peaks", value=10_000)
-        rel_height = 1 - st.number_input("relative height for symmetry factor", value=0.05)
-    
-        submitted = st.form_submit_button("Submit")
-    
-    
-    if submitted:
-        data: str = pd.read_csv(filename, sep='\s+')
-    fig, asymmetry_factor_list = find_asymmetry(data, peak_prominence, filename, rel_height)
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    st.write("assymetry factors")
-    st.dataframe(asymmetry_factor_list)
+
+st.header('Spectra symmetry factor calculator')
+
+with st.expander("Important", icon="🚨"):
+    st.info("! column name: wave_nm and int")
+    st.info("! separator is whitespace or tab")
+    st.info("! file format txt or csv")
+    st.write("https://www.shimadzu.com/an/service-support/technical-support/analysis-basics/basic/theoretical_plate.html")
+    formula = r'''
+    $$ 
+    Symmetry factor =  \frac{right_x - peak_x}{peak_x - left_x} 
+    $$ 
+    '''
+    st.write(formula)
+    st.image("img_formula.jpg")
+
+with st.form("input data:"):
+    filename = st.file_uploader("Choose a file")
+
+    peak_prominence = st.number_input("approx intensity of peaks", value=10_000)
+    rel_height = 1 - st.number_input("relative height for symmetry factor", value=0.05)
+
+    submitted = st.form_submit_button("Submit")
+
+
+if submitted:
+    data: str = pd.read_csv(filename, sep='\s+')
+fig, asymmetry_factor_list = find_asymmetry(data, peak_prominence, filename, rel_height)
+
+st.plotly_chart(fig, use_container_width=True)
+
+st.write("assymetry factors")
+st.dataframe(asymmetry_factor_list)
