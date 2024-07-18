@@ -62,12 +62,12 @@ with st.form("input data:"):
 
     submitted = st.form_submit_button("Submit")
 
-if uploaded_file is not None:
-    if submitted:
-        data: str = pd.read_csv(filename, sep='\s+')
-        fig, asymmetry_factor_list = find_asymmetry(data, peak_prominence, filename, rel_height)
-        
-        st.plotly_chart(fig, use_container_width=True)
-        
-        st.write("assymetry factors")
-        st.dataframe(asymmetry_factor_list)
+
+if submitted:
+    data: str = pd.read_csv(filename, sep='\s+')
+    fig, asymmetry_factor_list = find_asymmetry(data, peak_prominence, filename, rel_height)
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    st.write("assymetry factors")
+    st.dataframe(asymmetry_factor_list)
