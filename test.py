@@ -4,7 +4,6 @@ import plotly.express as px
 import streamlit as st
 from scipy.signal import find_peaks, peak_widths
 
-st.write("hw")
 
 def find_asymmetry(data, peak_prominence, filename, rel_height):
     fig = px.line(data, x="wave_nm", y="int", title=f'Spectra {filename}')
