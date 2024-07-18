@@ -38,7 +38,7 @@ def find_asymmetry(data, peak_prominence, filename, rel_height):
     return fig, asymmetry_factor_list
 
 if __name__ == "__main__": 
-    st.set_page_config(layout="wide")
+
     st.header('Spectra symmetry factor calculator')
     
     with st.expander("Important", icon="🚨"):
