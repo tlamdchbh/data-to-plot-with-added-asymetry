@@ -4,7 +4,6 @@ import plotly.express as px
 import streamlit as st
 from scipy.signal import find_peaks, peak_widths
 
-
 def find_asymmetry(data, peak_prominence, filename, rel_height):
     fig = px.line(data, x="wave_nm", y="int", title=f'Spectra {filename}')
     peaks, properties = find_peaks(data["int"], prominence=peak_prominence)
@@ -38,9 +37,6 @@ def find_asymmetry(data, peak_prominence, filename, rel_height):
     # fig.write_html(f'spectra_{peak_prominence}_{filename}.html')
     return fig, asymmetry_factor_list
 
-
-st.set_page_config(layout="wide")
-# Usage
 st.header('Spectra symmetry factor calculator')
 
 with st.expander("Important", icon="🚨"):
@@ -57,17 +53,19 @@ with st.expander("Important", icon="🚨"):
     st.image("img_formula.jpg")
 
 with st.form("input data:"):
-    filename = st.text_input("path to file", value="")
+    filename = st.file_uploader("Choose a file")
+
     peak_prominence = st.number_input("approx intensity of peaks", value=10_000)
     rel_height = 1 - st.number_input("relative height for symmetry factor", value=0.05)
 
     submitted = st.form_submit_button("Submit")
 
+
 if submitted:
     data: str = pd.read_csv(filename, sep='\s+')
     fig, asymmetry_factor_list = find_asymmetry(data, peak_prominence, filename, rel_height)
-
+    
     st.plotly_chart(fig, use_container_width=True)
-
+    
     st.write("assymetry factors")
     st.dataframe(asymmetry_factor_list)
